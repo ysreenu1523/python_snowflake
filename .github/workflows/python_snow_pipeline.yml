@@ -1,0 +1,42 @@
+name: Snowflake Data Load Pipeline
+
+# Trigger the pipeline on every push to the main branch
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  run-pipeline:
+    runs-on: self-hosted
+
+    steps:
+    # Step 1: Check out code from GitHub repository to runner instance
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    # Step 2: Configure Python runtime environment
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip' # Speeds up subsequent runs
+
+    # Step 3: Install library requirements
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # Step 4: Map secret credentials and execute python ingestion module
+    - name: Run Snowflake Ingestion Script
+      env:
+        user: ${{ secrets.user }}
+        password: ${{ secrets.password }}
+        account: ${{ secrets.account }}
+        warehouse: ${{ secrets.warehouse }}
+        database: ${{ secrets.database }}
+        schema: ${{ secrets.schema }}
+      run: |
+        python src/load_to_snowflake.py
