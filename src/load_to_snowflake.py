@@ -9,7 +9,7 @@ def get_snowflake_connection():
     try:
         conn = snowflake.connector.connect(
             user="YSREENUMBA",
-            password="Manvitlasya@12",
+            password="*******",
             account="APJMMXT-GL29185",
             warehouse="DBTSNOW",
             database="DBTSNOW",
