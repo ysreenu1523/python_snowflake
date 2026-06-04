@@ -1,2 +1,10 @@
-__pycache__/
+# Environment variables
 .env
+.env.local
+*.pyc
+__pycache__/
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
