@@ -19,29 +19,29 @@ def connect_to_snowflake():
     )
     return conn
 
-def load_csv_to_snowflake(csv_file_path, table_name):
-    """Read CSV and load to Snowflake"""
+def load_table_to_snowflake(source_table, target_table):
+    """Read from Snowflake table and load to another table"""
     try:
-        # Read CSV file
-        df = pd.read_csv(csv_file_path)
-        
-        print(f"✓ CSV loaded successfully. Shape: {df.shape}")
-        print(f"Columns: {df.columns.tolist()}")
-        
         # Connect to Snowflake
         conn = connect_to_snowflake()
         
-        # Write to Snowflake
+        # Read from source table
+        query = f"SELECT id, name, sal FROM {source_table}"
+        df = pd.read_sql(query, conn)  # Pass conn, not self.conn
+        
+        print(f"✓ Data loaded successfully. Shape: {df.shape}")
+        
+        # Write to target table
         success, nchunks, nrows, _ = write_pandas(
             conn, 
             df, 
-            table_name.upper(),
+            target_table.upper(),
             auto_create_table=True,
             overwrite=False
         )
         
         if success:
-            print(f"✓ Successfully loaded {nrows} rows into {table_name}")
+            print(f"✓ Successfully loaded {nrows} rows into {target_table}")
         
         conn.close()
         return True
@@ -52,7 +52,6 @@ def load_csv_to_snowflake(csv_file_path, table_name):
 
 if __name__ == "__main__":
     # Example usage
-    csv_path = "E:\python_snowflake\data\sample_data.csv"
-    table_name = "MY_TABLE"
-    
-    load_csv_to_snowflake(csv_path, table_name)
+    source_table = "inc_project"
+    target_table = "test_snow"
+    load_table_to_snowflake(source_table, target_table)
