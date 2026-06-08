@@ -52,6 +52,7 @@ def load_table_to_snowflake(source_table, target_table):
 
 if __name__ == "__main__":
     # Example usage
-    source_table = "inc_project"
-    target_table = "test_snow"
-    load_table_to_snowflake(source_table, target_table)
+    csv_path = "E:\python_snowflake\data\sample_data.csv"
+    table_name = "MY_TABLE"
+    
+    load_csv_to_snowflake(csv_path, table_name)

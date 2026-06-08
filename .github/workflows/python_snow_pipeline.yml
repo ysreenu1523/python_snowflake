@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'data/**'
+      
       - 'load_to_snowflake.py'
   workflow_dispatch:  # Manual trigger
 
@@ -29,6 +29,8 @@ jobs:
       
       - name: Load CSV to Snowflake
         env:
+          
+          
           SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
           SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
@@ -36,7 +38,7 @@ jobs:
           SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
           SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
         run: python load_to_snowflake.py
-      
+                
       - name: Notify on Success
         if: success()
         run: echo "✓ Data loaded successfully to Snowflake"
