@@ -55,4 +55,4 @@ if __name__ == "__main__":
     csv_path = "E:\python_snowflake\data\sample_data.csv"
     table_name = "MY_TABLE"
     
-    load_csv_to_snowflake(csv_path, table_name)
+    load_table_to_snowflake(csv_path, table_name)
