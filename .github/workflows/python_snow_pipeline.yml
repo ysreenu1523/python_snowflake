@@ -37,7 +37,7 @@ jobs:
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
           SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
           SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
-        run: python ${{ github.workspace }}/python_snowflake/load_to_snowflake.py
+        run: python ${{ github.workspace }}/src/load_to_snowflake.py
                 
       - name: Notify on Success
         if: success()
