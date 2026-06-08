@@ -2,7 +2,10 @@ import pandas as pd
 import snowflake.connector
 from snowflake.connector.pandas_tools import write_pandas
 import os
+from dotenv import load_dotenv
 
+# Load environment variables
+load_dotenv()
 
 def connect_to_snowflake():
     """Establish connection to Snowflake"""
@@ -49,7 +52,6 @@ def load_table_to_snowflake(source_table, target_table):
 
 if __name__ == "__main__":
     # Example usage
-    csv_path = "E:\python_snowflake\data\sample_data.csv"
-    table_name = "MY_TABLE"
-    
-    load_table_to_snowflake(csv_path, table_name)
+    source_table = "inc_project"
+    target_table = "test_snow"
+    load_table_to_snowflake(source_table, target_table)
