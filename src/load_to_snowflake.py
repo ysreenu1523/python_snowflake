@@ -10,7 +10,7 @@ import os
 def connect_to_snowflake():
     """Establish connection to Snowflake"""
     conn = snowflake.connector.connect(
-        user=os.getenv('SNOWFLAKE_USER'),
+        user='YSREENUMBA',
         password=os.getenv('SNOWFLAKE_PASSWORD'),
         account=os.getenv('SNOWFLAKE_ACCOUNT'),
         warehouse=os.getenv('SNOWFLAKE_WAREHOUSE'),
