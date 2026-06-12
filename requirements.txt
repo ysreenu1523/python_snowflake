@@ -1,3 +1,4 @@
 snowflake-connector-python==3.12.2
 pandas==2.2.2
 sqlalchemy
+snowflake-sqlalchemy
