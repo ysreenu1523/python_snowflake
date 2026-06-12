@@ -3,6 +3,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 import snowflake.connector
 from snowflake.connector.pandas_tools import write_pandas
+import urllib.parse
 # from dotenv import load_dotenv
 
 # # Load environment variables
@@ -16,9 +17,11 @@ def get_snowflake_engine_and_conn():
     warehouse = os.getenv('SNOWFLAKE_WAREHOUSE')
     database = os.getenv('SNOWFLAKE_DATABASE')
     schema = os.getenv('SNOWFLAKE_SCHEMA')
-    
+
+    safe_password = urllib.parse.quote_plus(os.getenv('SNOWFLAKE_PASSWORD'))
+    safe_user = urllib.parse.quote_plus(os.getenv('SNOWFLAKE_USER'))
     # 1. Create SQLAlchemy Engine to eliminate the pd.read_sql warning
-    connection_url = f"snowflake://{user}:{password}@{account}/{database}/{schema}?warehouse={warehouse}"
+    connection_url = f"snowflake://{safe_user}:{safe_password}@{account}/{database}/{schema}?warehouse={warehouse}"
     engine = create_engine(connection_url)
     
     # 2. Create raw connection needed specifically for write_pandas
@@ -31,7 +34,7 @@ def get_snowflake_engine_and_conn():
         schema=schema
     )
     
-    return engine, raw_conn
+    return engine,  raw_conn
 
 def load_table_to_snowflake(source_table, target_table):
     """Read from Snowflake table using Engine and load to another table using raw conn"""
