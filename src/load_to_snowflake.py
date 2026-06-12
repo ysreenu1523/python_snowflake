@@ -31,7 +31,7 @@ def get_snowflake_engine_and_conn():
         schema=schema
     )
     
-    return user, password, account, warehouse, datbase, schema, engine, raw_conn
+    return user, password, account, warehouse, database, schema, engine, raw_conn
 
 def load_table_to_snowflake(source_table, target_table):
     """Read from Snowflake table using Engine and load to another table using raw conn"""
