@@ -29,6 +29,7 @@ jobs:
       
       - name: Load CSV to Snowflake
         env:
+          DATA_PATH: ${{ github.workspace }}/data/sample_data.csv
           
           
           SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
@@ -37,7 +38,7 @@ jobs:
           SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
           SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
           SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
-        run: python ${{ github.workspace }}/src/load_to_snowflake.py
+        run: python ${{ github.workspace }}/src/file_to_table.py
                 
       - name: Notify on Success
         if: success()
