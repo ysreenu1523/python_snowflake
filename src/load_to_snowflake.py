@@ -44,7 +44,7 @@ def load_table_to_snowflake(source_table, target_table):
         engine, raw_conn = get_snowflake_engine_and_conn()
         
         # Read from source table using the SQLAlchemy engine context
-        query = f"SELECT id, name, sal FROM {source_table}"
+        query = f"SELECT id, name, sal,current_date as load_dt FROM {source_table}"
         with engine.connect() as conn:
             df = pd.read_sql(query, conn)
         
