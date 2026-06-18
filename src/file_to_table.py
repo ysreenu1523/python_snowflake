@@ -52,7 +52,7 @@ def load_csv_to_snowflake(csv_file_path, table_name):
 
 if __name__ == "__main__":
     # Example usage
-    csv_path = "E:\python_snowflake\data\sample_data.csv"
+    csv_path = os.getenv('DATA_PATH', r"E:\python_snowflake\data\sample_data.csv")
     table_name = "file_to_table"
     
     load_csv_to_snowflake(csv_path, table_name)
